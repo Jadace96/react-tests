@@ -5,26 +5,29 @@ import { render, screen, waitFor } from "@testing-library/react";
 import { fetchPokes } from "services/Poke.service";
 
 // mocks
-import { mockFetchPokesResponse } from "mocks/data/Pokes.mock";
-import { mockSuccess, mockError } from "mocks/methods/Fetch.mock";
+import { mockFetchPokesResponse } from "mocks/data";
+import { mockFetchSuccess, mockFetchError, mockConsole } from "mocks/methods";
 
 describe("fetchPokes tests suit", () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  it("should return success data", async () => {
-    await mockSuccess(mockFetchPokesResponse);
-    const response = await fetchPokes();
+  it("should return success response", async () => {
+    await mockFetchSuccess(mockFetchPokesResponse);
+    const { isError, response } = await fetchPokes();
 
+    expect(isError).toBeFalsy();
     expect(response).toEqual(mockFetchPokesResponse);
   });
 
-  it("should return error message", async () => {
+  it("should return isError as true", async () => {
+    mockConsole();
     const mockErrorMessage = "Some error message";
-    await mockError(mockErrorMessage);
-    const response = await fetchPokes();
+    await mockFetchError(mockErrorMessage);
+    const { isError } = await fetchPokes();
 
-    expect(response).toEqual(mockErrorMessage);
+    expect(isError).toBeTruthy();
+    expect(global.console.error).toBeCalledWith(mockErrorMessage);
   });
 });

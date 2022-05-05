@@ -27,17 +27,16 @@ export const usePoke = (): UsePokeTypes => {
   const [isFetchingPokesError, setIsFetchingPokesError] = useState(false);
   const [isFetchingPokesSuccess, setIsFetchingPokesSuccess] = useState(false);
 
-  const onFetchPokesDataSuccess = ({
-    results,
-  }: FetchPokesSuccessResponseTypes) => {
-    const pokesName: Array<PokeNameType> = getPokesByName(results);
-
+  const onFetchPokesDataSuccess = (
+    response: FetchPokesSuccessResponseTypes
+  ) => {
+    const pokesName: Array<PokeNameType> = getPokesByName(response?.results);
+    console.log("response =>>>>", response);
     setPokesData(pokesName);
     setIsFetchingPokesSuccess(true);
   };
 
-  const onFetchPokesDataError = (error: FetchPokesErrorTypes) => {
-    console.error(error);
+  const onFetchPokesDataError = () => {
     setIsFetchingPokesError(true);
   };
 
@@ -46,10 +45,11 @@ export const usePoke = (): UsePokeTypes => {
     setIsFetchingPokesError(false);
     setIsFetchingPokesSuccess(false);
 
-    fetchPokes(limit)
-      .then(onFetchPokesDataSuccess)
-      .catch(onFetchPokesDataError)
-      .finally(() => setIsFetchingPokes(false));
+    const { isError, response } = await fetchPokes(limit);
+
+    isError ? onFetchPokesDataError() : onFetchPokesDataSuccess(response);
+
+    setIsFetchingPokes(false);
   };
 
   useEffect(() => {

@@ -1,4 +1,4 @@
-export const mockSuccess = (response: any) => {
+export const mockFetchSuccess = (response: any) => {
   global.fetch = jest.fn().mockImplementation(() =>
     Promise.resolve({
       json: () => response,
@@ -6,6 +6,6 @@ export const mockSuccess = (response: any) => {
   );
 };
 
-export const mockError = (error: any) => {
+export const mockFetchError = (error: any) => {
   global.fetch = jest.fn().mockImplementation(() => Promise.reject(error));
 };

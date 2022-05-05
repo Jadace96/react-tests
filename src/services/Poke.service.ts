@@ -9,7 +9,11 @@ export const fetchPokes = async (
 ): Promise<FetchPokesResponseTypes> => {
   const URL = `${BASE_URL}/pokemon?limit=${limit}`;
 
-  return fetch(URL)
+  return await fetch(URL)
     .then((response) => response.json())
-    .catch((error) => error);
+    .then((response) => ({ response }))
+    .catch((error) => {
+      console.error(error);
+      return { isError: true };
+    });
 };
