@@ -14,12 +14,14 @@ import { DATA_TEST_ID } from "../constants";
 import { mockPokesName } from "../mocks/Pokes.mock";
 
 describe("App test suit with usePoke hook mocked", () => {
+  const mockFetchPokesByLimit = jest.fn();
   it("should render the loader", () => {
     jest.spyOn(usePokeHook, "usePoke").mockReturnValue({
-      pokesData: mockPokesName,
       isFetchingPokes: true,
+      pokesData: mockPokesName,
       isFetchingPokesError: false,
       isFetchingPokesSuccess: false,
+      fetchPokesByLimit: mockFetchPokesByLimit,
     });
 
     render(<App />);
@@ -30,10 +32,11 @@ describe("App test suit with usePoke hook mocked", () => {
 
   it("should render error message", () => {
     jest.spyOn(usePokeHook, "usePoke").mockReturnValue({
-      pokesData: mockPokesName,
       isFetchingPokes: false,
+      pokesData: mockPokesName,
       isFetchingPokesError: true,
       isFetchingPokesSuccess: false,
+      fetchPokesByLimit: mockFetchPokesByLimit,
     });
 
     render(<App />);
@@ -44,10 +47,11 @@ describe("App test suit with usePoke hook mocked", () => {
 
   it("should render 20 pokes", () => {
     jest.spyOn(usePokeHook, "usePoke").mockReturnValue({
-      pokesData: mockPokesName,
       isFetchingPokes: false,
+      pokesData: mockPokesName,
       isFetchingPokesError: false,
       isFetchingPokesSuccess: true,
+      fetchPokesByLimit: mockFetchPokesByLimit,
     });
 
     render(<App />);
