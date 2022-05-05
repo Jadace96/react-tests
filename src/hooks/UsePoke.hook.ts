@@ -7,7 +7,11 @@ import { fetchPokes } from "../services/Poke.service";
 import { getPokesByName } from "../utils/Poke.util";
 
 // types
-import { PokeNameType, FetchPokesResponseTypes } from "../types/Poke.types";
+import {
+  PokeNameType,
+  FetchPokesErrorTypes,
+  FetchPokesSuccessResponseTypes,
+} from "../types/Poke.types";
 
 export type UsePokeTypes = {
   isFetchingPokes: boolean;
@@ -23,19 +27,21 @@ export const usePoke = (): UsePokeTypes => {
   const [isFetchingPokesError, setIsFetchingPokesError] = useState(false);
   const [isFetchingPokesSuccess, setIsFetchingPokesSuccess] = useState(false);
 
-  const onFetchPokesDataSuccess = (data: FetchPokesResponseTypes) => {
-    const pokesName: Array<PokeNameType> = getPokesByName(data?.results);
+  const onFetchPokesDataSuccess = ({
+    results,
+  }: FetchPokesSuccessResponseTypes) => {
+    const pokesName: Array<PokeNameType> = getPokesByName(results);
 
     setPokesData(pokesName);
     setIsFetchingPokesSuccess(true);
   };
 
-  const onFetchPokesDataError = (error: any) => {
+  const onFetchPokesDataError = (error: FetchPokesErrorTypes) => {
     console.error(error);
     setIsFetchingPokesError(true);
   };
 
-  const fetchPokesByLimit = (limit = 20) => {
+  const fetchPokesByLimit = async (limit = 20) => {
     setIsFetchingPokes(true);
     setIsFetchingPokesError(false);
     setIsFetchingPokesSuccess(false);
@@ -47,7 +53,6 @@ export const usePoke = (): UsePokeTypes => {
   };
 
   useEffect(() => {
-    console.log("MOUNTED!!!");
     fetchPokesByLimit();
   }, []);
 

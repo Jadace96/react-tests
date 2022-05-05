@@ -5,13 +5,13 @@ import { render, screen } from "@testing-library/react";
 import { App } from "../App";
 
 // hooks
-import * as usePokeHook from "../hooks/UsePoke.hook";
+import * as usePokeHook from "hooks/UsePoke.hook";
 
 // constants
-import { DATA_TEST_ID } from "../constants";
+import { DATA_TEST_ID } from "constant";
 
 // mocks
-import { mockPokesName } from "../mocks/Pokes.mock";
+import { mockPokesName } from "mocks/data/Pokes.mock";
 
 describe("App test suit with usePoke hook mocked", () => {
   const mockFetchPokesByLimit = jest.fn();

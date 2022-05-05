@@ -1,5 +1,5 @@
 // utils
-import { getPokesByName } from "../utils/Poke.util";
+import { getPokesByName } from "../../utils/Poke.util";
 
 export const mockFetchPokesResponse = {
   count: 1126,

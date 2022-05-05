@@ -1,14 +1,14 @@
 // hooks
-import { usePoke, UsePokeTypes } from "./hooks/UsePoke.hook";
+import { usePoke, UsePokeTypes } from "hooks/UsePoke.hook";
 
 // constants
-import { DATA_TEST_ID } from "./constants";
+import { DATA_TEST_ID } from "constant";
 
 // styles
 import "./App.css";
 
 // types
-import { PokeNameType } from "./types/Poke.types";
+import { PokeNameType } from "types/Poke.types";
 
 export function App() {
   const {

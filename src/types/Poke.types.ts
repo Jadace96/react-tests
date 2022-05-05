@@ -5,8 +5,14 @@ export type PokeTypes = {
   name: PokeNameType;
 };
 
-export type FetchPokesResponseTypes = {
+export type FetchPokesSuccessResponseTypes = {
   count: number;
   next: string;
   results: Array<PokeTypes>;
 };
+
+export type FetchPokesErrorTypes = any;
+
+export type FetchPokesResponseTypes =
+  | FetchPokesSuccessResponseTypes
+  | FetchPokesErrorTypes;
