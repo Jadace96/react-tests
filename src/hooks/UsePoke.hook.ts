@@ -14,6 +14,7 @@ export type UsePokeTypes = {
   isFetchingPokesError: boolean;
   pokesData: Array<PokeNameType>;
   isFetchingPokesSuccess: boolean;
+  fetchPokesByLimit: (limit: number) => void;
 };
 
 export const usePoke = (): UsePokeTypes => {
@@ -34,17 +35,26 @@ export const usePoke = (): UsePokeTypes => {
     setIsFetchingPokesError(true);
   };
 
-  useEffect(() => {
+  const fetchPokesByLimit = (limit = 20) => {
     setIsFetchingPokes(true);
-    fetchPokes()
+    setIsFetchingPokesError(false);
+    setIsFetchingPokesSuccess(false);
+
+    fetchPokes(limit)
       .then(onFetchPokesDataSuccess)
       .catch(onFetchPokesDataError)
       .finally(() => setIsFetchingPokes(false));
+  };
+
+  useEffect(() => {
+    console.log("MOUNTED!!!");
+    fetchPokesByLimit();
   }, []);
 
   return {
     pokesData,
     isFetchingPokes,
+    fetchPokesByLimit,
     isFetchingPokesError,
     isFetchingPokesSuccess,
   };

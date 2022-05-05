@@ -11,8 +11,18 @@ import "./App.css";
 import { PokeNameType } from "./types/Poke.types";
 
 export function App() {
-  const { pokesData, isFetchingPokes, isFetchingPokesError }: UsePokeTypes =
-    usePoke();
+  const {
+    pokesData,
+    isFetchingPokes,
+    fetchPokesByLimit,
+    isFetchingPokesError,
+  }: UsePokeTypes = usePoke();
+
+  const onClickGetMorePokes = () => {
+    const pokemonLimit = pokesData?.length + 20;
+
+    fetchPokesByLimit(pokemonLimit);
+  };
 
   if (isFetchingPokes) {
     return <div>Loading...</div>;
@@ -22,11 +32,14 @@ export function App() {
 
   return (
     <>
-      <h3>First {pokesData?.length || 0} pokemon</h3>
+      <div className="container">
+        <h3>First {pokesData?.length || 0} pokemon</h3>
+        <button onClick={onClickGetMorePokes}>Get 20 more</button>
+      </div>
       <ul>
-        {pokesData?.map((poke: PokeNameType) => (
+        {pokesData?.map((poke: PokeNameType, index: number) => (
           <li data-testid={DATA_TEST_ID.POKES.LIST_ITEM_NAME} key={poke}>
-            {poke}
+            {index + 1} - {poke}
           </li>
         ))}
       </ul>

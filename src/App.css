@@ -2,6 +2,33 @@
   text-align: center;
 }
 
-h3 {
+h3,
+ul,
+button {
   margin-left: 20px;
+}
+
+ul {
+  overflow: auto;
+  max-height: 50vh;
+  max-width: 200px;
+  padding-left: 20px;
+  padding-block: 15px;
+  border: 1px solid grey;
+}
+
+li {
+  list-style: none;
+}
+
+button {
+  cursor: pointer;
+  padding: 5px 10px;
+  border-width: 1px;
+  border-radius: 20px;
+}
+
+.container {
+  display: flex;
+  align-items: center;
 }
