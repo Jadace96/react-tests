@@ -9,7 +9,6 @@ import { getPokesByName } from "../utils/Poke.util";
 // types
 import {
   PokeNameType,
-  FetchPokesErrorTypes,
   FetchPokesSuccessResponseTypes,
 } from "../types/Poke.types";
 
