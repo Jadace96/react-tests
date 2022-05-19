@@ -30,7 +30,6 @@ export const usePoke = (): UsePokeTypes => {
     response: FetchPokesSuccessResponseTypes
   ) => {
     const pokesName: Array<PokeNameType> = getPokesByName(response?.results);
-    console.log("response =>>>>", response);
     setPokesData(pokesName);
     setIsFetchingPokesSuccess(true);
   };

@@ -15,9 +15,11 @@ describe("fetchPokes tests suit", () => {
 
   it("should return success response", async () => {
     await mockFetchSuccess(mockFetchPokesResponse);
+
     const { isError, response } = await fetchPokes();
 
-    expect(isError).toBeFalsy();
+    expect(isError).toBeUndefined();
+    expect(response.results).toHaveLength(20)
     expect(response).toEqual(mockFetchPokesResponse);
   });
 
@@ -25,9 +27,10 @@ describe("fetchPokes tests suit", () => {
     mockConsole();
     const mockErrorMessage = "Some error message";
     await mockFetchError(mockErrorMessage);
+
     const { isError } = await fetchPokes();
 
-    expect(isError).toBeTruthy();
+    expect(isError).toBe(true);
     expect(global.console.error).toBeCalledWith(mockErrorMessage);
   });
 });
